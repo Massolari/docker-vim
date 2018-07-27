@@ -141,6 +141,9 @@ set ruler
 set number
 
 let no_buffers_menu=1
+if !exists('g:not_finish_vimplug')
+  colorscheme molokai
+endif
 
 set mousemodel=popup
 set t_Co=256
@@ -168,16 +171,6 @@ set scrolloff=5
 
 "" Status bar
 set laststatus=2
-
-"" Use modeline overrides
-" set modeline
-" set modelines=10
-
-" set title
-" set titleold="Terminal"
-" set titlestring=%F
-
-" set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
