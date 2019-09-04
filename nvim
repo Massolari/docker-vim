@@ -1,0 +1,16 @@
+nvim () {
+    tty=
+    tty -s && tty=--tty
+
+    docker run \
+        $tty \
+    	 -it \
+	 --rm \
+	 --volume $(pwd):/mnt \
+	 --volume $HOME/.config:/root/.config \
+	 --volume $HOME/.vim:/root/.vim \
+ 	 massolari/docker-vim:latest "$@"
+
+}
+
+nvim $@
