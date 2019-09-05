@@ -2,7 +2,7 @@ FROM ubuntu:rolling
 MAINTAINER Douglas Massolari <douglasmassolari@hotmail.com>
 
 # Dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y wget git php nodejs curl php-pear neovim pgformatter python3 python3-pip
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y wget git php php-xml php-tokenizer nodejs curl php-pear neovim pgformatter python3 python3-pip dos2unix
 
 # Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
@@ -18,27 +18,30 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 RUN wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 RUN chmod +x nvim.appimage
 
-# Linters
+# PHP CodeSniffer
 RUN pear install pear/PHP_CodeSniffer
-RUN yarn global add eslint
-RUN yarn global add typescript
+
+# Typescript e Elm
+RUN yarn global add typescript elm elm-format @elm-tooling/elm-language-server
 
 # Vim configuration files
-COPY ./.vimrc /root/
-COPY ./.vimrc.bundles /root/
-COPY ./.eslintrc.json /root/
+RUN git clone https://github.com/massolari/vimrc-files
+RUN ln -s $PWD/vimrc-files/.vimrc /root/
+RUN ln -s $PWD/vimrc-files/.vimrc.bundles /root/
 COPY ./.phpcs.xml /root/
+COPY ./init.sh /
+RUN chmod +x ./init.sh
 RUN mkdir /root/.config
 RUN mkdir /root/.config/nvim
 COPY ./init.vim /root/.config/nvim/
 
 # Install plugins
 RUN ./nvim.appimage --appimage-extract
-RUN squashfs-root/AppRun +PlugInstall +qall
 
 # Clean
 RUN apt remove php-pear -y
 RUN rm ./nvim.appimage
+RUN apt autoremove -y
 
-WORKDIR /mnt
-ENTRYPOINT ["/squashfs-root/AppRun"]
+WORKDIR /root/workspace
+ENTRYPOINT ["/init.sh"]

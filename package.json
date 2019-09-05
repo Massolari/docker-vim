@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "global": "^4.4.0",
+    "nativescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.1.0",
+    "@typescript-eslint/parser": "^2.1.0",
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  }
+}

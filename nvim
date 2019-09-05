@@ -6,9 +6,10 @@ nvim () {
         $tty \
     	 -it \
 	 --rm \
-	 --volume $(pwd):/mnt \
+	 --volume $(pwd):/root/workspace \
 	 --volume $HOME/.config:/root/.config \
 	 --volume $HOME/.vim:/root/.vim \
+	 --volume $HOME/.fzf:/root/.fzf \
  	 massolari/docker-vim:latest "$@"
 
 }
