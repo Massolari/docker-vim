@@ -1,4 +1,4 @@
-FROM ubuntu:rolling
+FROM ubuntu:disco
 MAINTAINER Douglas Massolari <douglasmassolari@hotmail.com>
 
 # Dependencies
