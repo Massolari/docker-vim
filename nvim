@@ -7,7 +7,7 @@ nvim () {
     	 -it \
 	 --rm \
 	 --volume $(pwd):/root/workspace \
-	 --volume $HOME/.config:/root/.config \
+	 --volume $HOME/.config/coc:/root/.config/coc \
 	 --volume $HOME/.vim:/root/.vim \
 	 --volume $HOME/.fzf:/root/.fzf \
  	 massolari/docker-vim:latest "$@"
