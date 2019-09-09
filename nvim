@@ -4,14 +4,19 @@ nvim () {
 
     docker run \
         $tty \
-    	 -it \
-	 --rm \
-	 --volume $(pwd):/root/workspace \
-	 --volume $HOME/.config/coc:/root/.config/coc \
-	 --volume $HOME/.vim:/root/.vim \
-	 --volume $HOME/.fzf:/root/.fzf \
- 	 massolari/docker-vim:latest "$@"
+        -it \
+        --rm \
+        --volume $(pwd):/root/workspace \
+        --volume $HOME/.config/coc:/root/.config/coc \
+        --volume $HOME/.vim:/root/.vim \
+        --volume $HOME/.fzf:/root/.fzf \
+        --memory="256m" \
+        --env="DISPLAY" \
+        --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+        massolari/docker-vim:latest "$@"
 
-}
+    }
 
+xhost +local:root
 nvim $@
+xhost -local:root

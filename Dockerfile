@@ -14,6 +14,10 @@ RUN apt update && apt install yarn && \
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+# Ripgrep
+RUN curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+RUN dpkg -i ripgrep_11.0.2_amd64.deb
+
 # Neovim
 RUN wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
 RUN chmod +x nvim.appimage
@@ -42,6 +46,7 @@ RUN ./nvim.appimage --appimage-extract
 RUN apt remove php-pear -y
 RUN rm ./nvim.appimage
 RUN apt autoremove -y
+RUN rm ripgrep_11.0.2_amd64.deb
 
 WORKDIR /root/workspace
 ENTRYPOINT ["/init.sh"]
