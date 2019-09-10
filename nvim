@@ -11,11 +11,10 @@ nvim () {
         --volume "$HOME"/.vim:/root/.vim \
         --volume "$HOME"/.fzf:/root/.fzf \
         --volume "$HOME"/.gitconfig:/root/.gitconfig \
-        --memory="256m" \
+        --memory="512m" \
         --env="DISPLAY" \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
         massolari/docker-vim:latest "$@"
-
     }
 
 xhost +local:root
