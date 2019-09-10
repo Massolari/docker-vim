@@ -6,10 +6,11 @@ nvim () {
         $tty \
         -it \
         --rm \
-        --volume $(pwd):/root/workspace \
-        --volume $HOME/.config/coc:/root/.config/coc \
-        --volume $HOME/.vim:/root/.vim \
-        --volume $HOME/.fzf:/root/.fzf \
+        --volume "$(pwd)":/root/workspace \
+        --volume "$HOME"/.config/coc:/root/.config/coc \
+        --volume "$HOME"/.vim:/root/.vim \
+        --volume "$HOME"/.fzf:/root/.fzf \
+        --volume "$HOME"/.gitconfig:/root/.gitconfig \
         --memory="256m" \
         --env="DISPLAY" \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
