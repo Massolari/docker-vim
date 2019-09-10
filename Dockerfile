@@ -26,7 +26,7 @@ RUN chmod +x nvim.appimage
 RUN pear install pear/PHP_CodeSniffer
 
 # Typescript e Elm
-RUN yarn global add typescript elm elm-format @elm-tooling/elm-language-server
+RUN yarn global add typescript tslint elm elm-format @elm-tooling/elm-language-server
 
 # Vim configuration files
 RUN git clone https://github.com/massolari/vimrc-files
@@ -39,7 +39,7 @@ RUN mkdir /root/.config
 RUN mkdir /root/.config/nvim
 COPY ./init.vim /root/.config/nvim/
 
-# Install plugins
+# Extract neovim
 RUN ./nvim.appimage --appimage-extract
 
 # Clean
