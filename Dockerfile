@@ -49,4 +49,5 @@ RUN apt autoremove -y
 RUN rm ripgrep_11.0.2_amd64.deb
 
 WORKDIR /root/workspace
+ENV SHELL /bin/bash
 ENTRYPOINT ["/init.sh"]
