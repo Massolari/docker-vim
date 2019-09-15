@@ -19,7 +19,7 @@ RUN curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripg
 RUN dpkg -i ripgrep_11.0.2_amd64.deb
 
 # Neovim
-RUN wget https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage
+RUN wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
 RUN chmod +x nvim.appimage
 
 # PHP CodeSniffer
