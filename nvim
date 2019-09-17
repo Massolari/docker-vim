@@ -8,6 +8,8 @@ nvim () {
         --rm \
         --volume "$(pwd)":/root/workspace \
         --volume "$HOME"/.config/coc:/root/.config/coc \
+        --volume "$HOME"/.config/nvim/coc-settings.json:/root/.config/nvim/coc-settings.json \
+        --volume "$HOME"/.vim/UltiSnips/:/root/.vim/UltiSnips/ \
         --volume "$HOME"/.vim:/root/.vim \
         --volume "$HOME"/.fzf:/root/.fzf \
         --volume "$HOME"/.gitconfig:/root/.gitconfig \
