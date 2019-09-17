@@ -2,7 +2,7 @@ FROM ubuntu:disco
 MAINTAINER Douglas Massolari <douglasmassolari@hotmail.com>
 
 # Dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y wget git php php-xml php-tokenizer nodejs curl php-pear neovim pgformatter python3 python3-pip dos2unix
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y wget git php php-xml php-tokenizer nodejs curl php-pear neovim pgformatter python3 python3-pip dos2unix libxml2-utils
 
 # Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
