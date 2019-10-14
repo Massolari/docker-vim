@@ -15,6 +15,7 @@ nvim () {
         --volume "$HOME"/.gitconfig:/root/.gitconfig \
         --env="DISPLAY" \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+        --detach-keys "ctrl-@" \
         massolari/docker-vim:latest "$@"
     }
 
