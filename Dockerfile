@@ -2,7 +2,7 @@ FROM ubuntu:disco
 MAINTAINER Douglas Massolari <douglasmassolari@hotmail.com>
 
 # Dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends wget git php php-xml php-tokenizer nodejs curl php-pear neovim pgformatter python3 python3-pip dos2unix libxml2-utils xsel gnupg2
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends wget git php php-xml php-tokenizer nodejs curl php-pear neovim pgformatter python3 xsel gnupg2 openjdk-8-jre-headless
 
 # Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -42,11 +42,12 @@ RUN git clone https://github.com/massolari/vimrc-files \
 COPY ./init.vim /root/.config/nvim/
 
 # Clean
-RUN apt remove php-pear -y \
+RUN apt remove php-pear gnupg2 -y \
     && rm ./nvim.appimage \
     && rm ./ripgrep_11.0.2_amd64.deb \
     && apt autoremove -y
 
 WORKDIR /root/workspace
 ENV SHELL /bin/bash
+ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64
 ENTRYPOINT ["/init.sh"]
