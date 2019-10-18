@@ -1,0 +1,43 @@
+FROM alpine:edge
+MAINTAINER Douglas Massolari <douglasmassolari@hotmail.com>
+
+# Dependencies
+RUN apk add --no-cache --update wget git php php-xml php-tokenizer nodejs curl php-pear python3 python3-dev dos2unix libxml2-utils xclip yarn
+
+# Ripgrep
+# RUN curl https://sh.rustup.rs -sSf > rust.sh && sh rust.sh -y
+# RUN git clone https://github.com/BurntSushi/ripgrep
+# RUN cd ripgrep && $HOME/.cargo/bin/cargo build --release
+
+# Plug.vim
+RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Neovim
+RUN wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+RUN chmod +x /nvim.appimage && ls && /nvim.appimage --appimage-extract
+
+# PHP CodeSniffer
+# RUN pear install pear/PHP_CodeSniffer
+
+# Typescript e Elm
+RUN yarn global add typescript tslint elm elm-format @elm-tooling/elm-language-server
+
+# Vim configuration files
+RUN git clone https://github.com/massolari/vimrc-files
+RUN ln -s $PWD/vimrc-files/.vimrc /root/
+RUN ln -s $PWD/vimrc-files/.vimrc.bundles /root/
+COPY ./.phpcs.xml /root/
+COPY ./init.sh /
+RUN chmod +x ./init.sh
+RUN mkdir /root/.config
+RUN mkdir /root/.config/nvim
+COPY ./init.vim /root/.config/nvim/
+
+# Clean
+RUN apk del php-pear
+RUN rm ./nvim.appimage
+
+WORKDIR /root/workspace
+ENV SHELL /bin/bash
+ENTRYPOINT ["/init.sh"]
