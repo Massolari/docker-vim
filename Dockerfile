@@ -3,6 +3,7 @@ MAINTAINER Douglas Massolari <douglasmassolari@hotmail.com>
 
 # Dependencies
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+    apt-transport-https \
     curl \
     git \
     gnupg2 \
@@ -16,14 +17,16 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-rec
     python3 \
     python3-pip \
     python3-setuptools \
+    wget \
     xsel
 
-# Yarn
+# Yarn e Dart
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && sh -c 'wget -qO- https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -' \
+    && sh -c 'wget -qO- https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list' \
     && apt update \
-    && apt install -y --no-install-recommends yarn \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends yarn dart
 
 # Plug.vim
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
@@ -60,9 +63,12 @@ COPY ./init.vim /root/.config/nvim/
 RUN apt remove php-pear gnupg2 -y \
     && rm ./nvim.appimage \
     && rm ./ripgrep_11.0.2_amd64.deb \
-    && apt autoremove -y
+    && apt autoremove -y \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /root/workspace
 ENV SHELL /bin/bash
 ENV JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-amd64
+ENV ANDROID_HOME /root/android-sdk
+ENV PATH /root/flutter/bin:${PATH}
 ENTRYPOINT ["/init.sh"]
