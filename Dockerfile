@@ -2,7 +2,21 @@ FROM ubuntu:disco
 MAINTAINER Douglas Massolari <douglasmassolari@hotmail.com>
 
 # Dependencies
-RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends wget git php php-xml php-tokenizer nodejs curl php-pear neovim pgformatter python3 xsel gnupg2 openjdk-8-jre-headless
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends \
+    curl \
+    git \
+    gnupg2 \
+    nodejs \
+    openjdk-8-jre-headless \
+    pgformatter \
+    php \
+    php-pear \
+    php-tokenizer \
+    php-xml \
+    python3 \
+    python3-pip \
+    python3-setuptools \
+    xsel
 
 # Yarn
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
@@ -20,9 +34,10 @@ RUN curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripg
     && dpkg -i ripgrep_11.0.2_amd64.deb
 
 # Neovim
-RUN wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage \
+RUN curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim.appimage \
     && chmod +x nvim.appimage \
-    && ./nvim.appimage --appimage-extract
+    && ./nvim.appimage --appimage-extract \
+    && pip3 install neovim
 
 # PHP CodeSniffer
 RUN pear install pear/PHP_CodeSniffer

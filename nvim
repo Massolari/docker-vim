@@ -13,12 +13,13 @@ nvim () {
         --volume "$HOME"/.vim:/root/.vim \
         --volume "$HOME"/.fzf:/root/.fzf \
         --volume "$HOME"/.gitconfig:/root/.gitconfig \
+        --volume "$HOME"/flutter:/root/flutter \
         --env="DISPLAY" \
         --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
         --detach-keys "ctrl-@,@" \
         massolari/docker-vim:latest "$@"
     }
 
-xhost +local:root
+xhost +
 nvim $@
-xhost -local:root
+xhost -
